@@ -19,6 +19,10 @@ public class ListUserServlet extends HttpServlet{
     private static final Logger log = LoggerFactory.getLogger(ListUserServlet.class);
     @Override
     protected void doGet(HttpServletRequest req,HttpServletResponse resp) throws ServletException, IOException{
+        if (!UserSessionUtils.isLogined(req.getSession())) {
+            resp.sendRedirect("/user/login.jsp");
+            return;
+        }
         req.setAttribute("users",DataBase.findAll());
         RequestDispatcher rd=req.getRequestDispatcher("/user/list.jsp");
         rd.forward(req, resp);

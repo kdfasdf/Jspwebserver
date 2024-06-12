@@ -1,7 +1,5 @@
 package next.web;
 
-import core.db.DataBase;
-import next.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,9 +12,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/user/logout")
-public class LogoutUser extends HttpServlet {
+public class LogoutUserServlet extends HttpServlet {
     private static final long serialVersionUID=1L;
-    private static final Logger log = LoggerFactory.getLogger(LogoutUser.class);
+    private static final Logger log = LoggerFactory.getLogger(LogoutUserServlet.class);
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException
     {

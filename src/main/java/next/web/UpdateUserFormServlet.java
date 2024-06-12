@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(value = { "/users/update", "/users/updateForm" })
+@WebServlet("/user/updateForm")
 
 public class UpdateUserFormServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -22,6 +22,8 @@ public class UpdateUserFormServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req,HttpServletResponse resp) throws ServletException,IOException{
         String userId=req.getParameter("userId");
         User user = DataBase.findUserById(userId);
+        if(!UserSessionUtils.isSameUser(req.getSession(),user))
+            throw new IllegalStateException("다른 사람의 계정은 수정할 수 없습니다");
         req.setAttribute("user",user);
         RequestDispatcher rd =  req.getRequestDispatcher("/user/updateForm.jsp");
         rd.forward(req,resp);

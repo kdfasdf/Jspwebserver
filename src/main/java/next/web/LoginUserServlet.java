@@ -15,9 +15,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/user/login")
-public class LoginUser extends HttpServlet {
+public class LoginUserServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static final Logger log = LoggerFactory.getLogger(LoginUser.class);
+    private static final Logger log = LoggerFactory.getLogger(LoginUserServlet.class);
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userId = req.getParameter("userId");
