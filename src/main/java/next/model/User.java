@@ -6,6 +6,18 @@ public class User {
     private String name;
     private String email;
 
+    public boolean matchPassword(String password)
+    {
+        if(password==null)
+        {
+            return false;
+        }
+        return this.password.equals(password);
+    }
+    public boolean isSameUser(User user) {
+        return userId.equals(user.userId);
+    }
+
     public User(String userId, String password, String name, String email) {
         this.userId = userId;
         this.password = password;

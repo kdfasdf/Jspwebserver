@@ -5,6 +5,7 @@ import next.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,14 +20,33 @@ public class LoginUser extends HttpServlet {
     private static final Logger log = LoggerFactory.getLogger(LoginUser.class);
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String userId= req.getParameter("userId");
+        String userId = req.getParameter("userId");
+        String password = req.getParameter("password");
         User user = DataBase.findUserById(userId);
-        if (user!=null)
+        if(user==null)
         {
-            HttpSession session = req.getSession();
-            session.setAttribute("user",user);
-            resp.sendRedirect("/");
+            req.setAttribute("loginFailed",true);
+            forward("/user/login.jsp",req,resp);
+            return;
         }
+        else{
+            if(user.matchPassword(password)){
+                HttpSession session = req.getSession();
+                session.setAttribute(UserSessionUtils.USER_SESSION_KEY,user);
+                resp.sendRedirect("/");
+            }
+            else{
+                req.setAttribute("loginFailed",true);
+                forward("/user/login.jsp",req,resp);
+            }
+        }
+
+    }
+
+    private void forward(String forwardUrl, HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        RequestDispatcher rd = req.getRequestDispatcher(forwardUrl);
+        rd.forward(req,resp);
     }
 
 }
