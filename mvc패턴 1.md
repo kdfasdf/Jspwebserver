@@ -86,9 +86,13 @@ public class CreateUserController extends AbstractController{
 MVC 패턴이란?
 MVC를 적용하지 않은 코드가 왜 복잡해지는지 코드를 통해 확인했으니  mvc 동작에 대해 좀 더 알아보자<br>
 mvc 패턴이란 위에 설명한 대로 클라이언트의 요청이 컨트롤러(Controller)에 진입하여 요청 로직을 처리 후 데이터(Model)을 처리후 뷰(View)에 담아 응답한다. 
+
 ![image](https://github.com/kdfasdf/Jspwebserver/assets/96770726/7654579d-6bc3-4765-8e3a-982df5986144)
+
 좀 더 의미가 와닿도록 사용자 예시로도 알아보자
+
 ![image](https://github.com/kdfasdf/Jspwebserver/assets/96770726/880aa847-d0aa-4a02-8418-0b7520edd3d3)
+
 위 설명과 그림으로 mvc의 3가지 컴포넌트를 정리하면
 - Model
   - 데이터와 관련된 부분
@@ -186,6 +190,7 @@ public class Controller {
 - Controller(Controller.java)
   - 연산 값 입력 및 Model View 처리
 Controller 쪽 설명이 부족하다 생각해 이미지로 첨부한다
+
 ![image](https://github.com/kdfasdf/Jspwebserver/assets/96770726/5f770200-366a-420a-abb6-e597d2ab69eb)
 
 - Model(Operation.java)
