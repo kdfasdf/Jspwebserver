@@ -1,6 +1,6 @@
 ## 서론
-프레임워크를 사용해 웹 개발을 해봤다면 mvc라는 말을 들어봤을 것 이다. 나 같은 경우 처음 mvc 개념을 접했을 때는 웹의 기본 구조가 서버 클라이언트 구조라 클라이언트에서 요청하면 서버에서 응답한다라는 라는 점에서 
-mvc 패턴 개념과 큰 구분하지 못했고 mvc 패턴이 웹 개발에 당연한 패턴이 아닌가라는 생각을 했었다. 하지만 jsp 실습에서 mvc 패턴을 적용해보기 전에 java http 서버에서 리펙토링을 해보면서 몸에 경험이 어느정도 쌓였고 이제는 mvc 패턴의 의미가 와닿을 것 같아 정리해본다.
+프레임워크를 사용해 웹 개발을 해봤다면 mvc라는 말을 들어봤을 것 이다. 나 같은 경우에는 처음 mvc 개념을 접했을 때 클라이언트 서버 구조와  mvc 패턴이 거의 같은 개념이라 생각 했었다
+하지만 최근 java http 서버에서 리펙토링을 해보면서 어느정도 mvc의 개념에 감을 잡은 상태이고 jsp, 서블릿 프로젝트에도 mvc 패턴을 적용해봐야 하기 때문에 정리해보았다.
 <br>
 
 ## mvc 패턴의 배경 
@@ -12,9 +12,9 @@ mvc 패턴 개념과 큰 구분하지 못했고 mvc 패턴이 웹 개발에 당�
 ## mvc 패턴을 적용한 웹 vs 적용하지 않은 웹
 mvc 패턴은 사용자의 요청이 Controller(C)에 진입하여 요청 로직을 처리 후 Model(M) 데이터를 구성한 후 View(V)에 담아 응답하는 패턴이다.
 <br>
-mvc 패턴이 적용된 웹의 특징은 클라이언트의 요청이 처음 진입 하는 부분이 Controller라는 것이다. mvc 패턴이 적용되지 않은 웹 같은 경우 jsp가 
+mvc 패턴의 특징은 클라이언트의 요청이 처음 진입 하는 부분이 Controller라는 것이다. mvc 패턴이 적용되지 않은 웹 같은 경우 jsp가 
 클라이언트 요청이 처음으로 진입하는 부분이라 jsp에 너무 많은 책임을 부여하면 코드의 복잡도가 늘어나고 구조를 파악해지기가 힘들어진다. 
-마침 학교다닐 때 데이터베이스 수업에서 웹 프로젝트를 시켰는데 mvc 패턴을 적용하지 않은 코드가 있으니 비교해보자
+아래는 학교다닐 때 데이터베이스 수업에서 웹 프로젝트를 시켰는데 mvc 패턴을 적용하지 않고 작성한 jsp 코드인데 리펙토링했던 Java Http Server 코드와 비교해보자
 <br>
 아래 같은 경우 열차관리 시스템에서 insertInfo.jsp에서 추가할 정보를 입력하는 form 입력 받은 데이터를 데이터베이스에 추가하는 코드이다
 
@@ -62,8 +62,8 @@ mvc 패턴이 적용된 웹의 특징은 클라이언트의 요청이 처음 진
       response.sendRedirect("after_login_manager.jsp?uid="+(String)session.getAttribute("uid"));
       %>
 ```
-많이 생략해서 올린건데도 mvc 패턴이 적용된 jsp 코드 보다도 처리하는 로직이 훨씬 많다 그리고 controller가 없기 때문에 jsp에서 다른 jsp로 리다이렉트하는 코드가 굉장히 많은데 1~2개도 아니고 이런 클래스 파일들이 
-계속 쌓이다 보면 당연히 코드 파악도 힘들어지고 추가 개발하는 것도 어려워진다 반면 Controller 리펙토링이 된 JavaWebserberdml CreateUserController는 역할과 의미 파악이 굉장히 간단하다
+참고로 많이 생략해서 올린 코드이다. 그런데도 mvc 패턴이 적용된 jsp 코드 보다도 수행해야하는 동작이 훨씬 많다 그리고 controller가 없기 때문에 jsp에서 다른 jsp로 리다이렉트하는 코드가 굉장히 많은데 1~2개도 아니고 페이지들이 
+계속 많아지다 보면 코드 파악도 힘들어지고 추가 개발하는 것도 어려워진다 반면 Controller 리펙토링이 된 JavaWebserberdml CreateUserController는 역할과 의미를 파악하기 굉장히 쉽다
 ```
 public class CreateUserController extends AbstractController{
     private static final Logger log = LoggerFactory.getLogger(CreateUserController.class);
@@ -89,7 +89,7 @@ mvc 패턴이란 위에 설명한 대로 클라이언트의 요청이 컨트롤�
 
 ![image](https://github.com/kdfasdf/Jspwebserver/assets/96770726/7654579d-6bc3-4765-8e3a-982df5986144)
 
-좀 더 의미가 와닿도록 사용자 예시로도 알아보자
+좀 더 의미가 와닿도록 검색 예시로도 알아보자
 
 ![image](https://github.com/kdfasdf/Jspwebserver/assets/96770726/880aa847-d0aa-4a02-8418-0b7520edd3d3)
 
@@ -178,10 +178,10 @@ public class Controller {
     }
 }
 ```
-위 원칙을 지켜야 Model과 View 가 완전히 독립적으로 동작할 수 있다.
+위 원칙을 지켜야 Model과 View가 완전히 독립적으로 동작할 수 있다.
 
 ## 예제 계산기
-위 내용을 공부하면서 계산기 구현을 MVC 패턴으로 해보면 좋을 것 같아 시도해본다
+위 내용을 공부하면서 계산기를 구현하는데 mvc 패턴을 적용해볼 것 같아서 진행해보았다
 우선 계산기의 요소들을 MVC 컴포넌트로 분리해본다
 - Model(Operation.java)
   - 연산처리 부분(데이터 처리)
