@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.annotation.WebServlet;
 
-@WebServlet("user/logout")
+
 public class WebServerLauncher {
     private static final Logger logger = LoggerFactory.getLogger(WebServerLauncher.class);
 

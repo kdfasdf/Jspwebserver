@@ -54,8 +54,8 @@
                         <li><a href="/user/updateForm?userId=${sessionScope.user.userId}" role="button">개인정보수정</a></li>
                     </c:when>
                     <c:otherwise>
-                        <li><a href="/user/login.jsp" role="button">로그인</a></li>
-                        <li><a href="/user/form.jsp" role="button">회원가입</a></li>
+                        <li><a href="/user/loginForm" role="button">로그인</a></li>
+                        <li><a href="/user/createForm" role="button">회원가입</a></li>
                     </c:otherwise>
                 </c:choose>
             </ul>
