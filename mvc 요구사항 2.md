@@ -136,5 +136,5 @@ execute를 통해 RequestDispatcher를 통한 중복 부분이 상당 수 제거
 -> 매핑 충돌문제로 Controller에 WebServlet어노테이션을 지우지 않아 생겼던 문제
 
 ## 결과 정리
-- 모든 페이지에 대해서 작업을 끝낸 것은 아니지만 mvc 패턴을 적용함으로써 view단과 controller를 분리하였다(login.jsp,form.jsp에 대한 은닉) 
+- 모든 페이지에 대해서 작업을 끝낸 것은 아니지만 mvc 패턴을 적용함으로써 view단과 controller를 분리하였다
 - 다만 아직 ResourceFilter에서 filterConfig.getServletContext().getNamedDispatcher("default"); 부분을 디버깅 까지 했는데도 이해를 못했는데 default 서블릿이 어디있는지 못찾았다
