@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.*;
 
 import core.jdbc.ConnectionManager;
 import next.model.User;
@@ -60,6 +61,83 @@ public class UserDao {
                 pstmt.close();
             }
             if (con != null) {
+                con.close();
+            }
+        }
+    }
+    public List<User> findAll() throws SQLException{
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        List<User> users = new ArrayList<>();
+        try
+        {
+            con = ConnectionManager.getConnection();
+            String sql = "SELECT userId,password,name,email FROM USERS";
+            pstmt = con.prepareStatement(sql);
+            rs=pstmt.executeQuery();
+            while(rs.next())
+            {
+                users.add(new User(rs.getString("userId"),rs.getString("password"),rs.getString("name"),rs.getString("email")));
+            }
+            return users;
+        }finally{
+            if(rs!=null){
+                rs.close();
+            }
+            if(pstmt!=null){
+                pstmt.close();
+            }
+            if(con!=null)
+                con.close();
+        }
+
+    }
+    public void deleteUser() throws SQLException{
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            con = ConnectionManager.getConnection();
+            String sql = "TRUNCATE TABLE USERS";
+            pstmt = con.prepareStatement(sql);
+            pstmt.executeUpdate();
+        }finally{
+            if(rs!=null)
+            {
+                rs.close();
+            }
+            if(pstmt!=null)
+            {
+                pstmt.close();
+            }
+            if(con!=null){
+                con.close();
+            }
+        }
+    }
+    public void updateUser(User user) throws SQLException{
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try{
+            con = ConnectionManager.getConnection();
+            String sql = "UPDATE USERS SET PASSWORD=?,NAME=?,EMAIL=? WHERE USERID=?";
+            pstmt=con.prepareStatement(sql);
+            pstmt.setString(1,user.getPassword());
+            pstmt.setString(2,user.getName());
+            pstmt.setString(3,user.getEmail());
+            pstmt.setString(4,user.getUserId());
+            pstmt.executeUpdate();
+        }finally{
+            if(rs!=null)
+            {
+                rs.close();
+            }
+            if(pstmt!=null){
+                pstmt.close();
+            }
+            if(con!=null){
                 con.close();
             }
         }
